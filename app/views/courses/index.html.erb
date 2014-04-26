@@ -1,12 +1,13 @@
 <%= form_tag '/', method: :get, :class => 'navbar-form text-center',
     :role => 'search', :id => 'search-form', :name => 'search-form'  do %>
   <div class="input-group input-group-lg">
-    <%= text_field_tag :query, params[:query], :class => 'form-control', :style => 'width: 600px', :placeholder => 'What do you want to learn about?' %>
+    <%= text_field_tag :query, params[:query], :class => 'typeahead tt-query', :style => 'width: 600px', :placeholder => 'What do you want to learn about?', :autocomplete => "off",  :spellcheck => false %>
     <div class="input-group-btn">
       <button type="submit" class="btn btn-success">
         <span class="glyphicon glyphicon-search"></span>
       </button>
     </div>
+    <ul class="typeahead typeahead-long dropdown-menu" style="top: 497px; left: 410px; display: none;"></ul>
   </div>
 <% end %>
 
@@ -18,7 +19,7 @@
         <h2><%= link_to course.name, course %></h2>
         <%= image_tag(course.picture.url(:thumb)) %>
         <p><%= course.description %></p>
-        
+
       </div>
     <% end %>
   </div>
