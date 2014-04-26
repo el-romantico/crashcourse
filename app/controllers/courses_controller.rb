@@ -88,6 +88,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def autocomplete
+    resultset = Course.search(params[:query], fields: [{name: :text_start}])
+    render json: resultset.map { |course| {value: course.name} }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course

@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
-  get 'requests/show'
-
-  get 'requests/new'
-
-  get 'requests/update'
-
-  get 'requests/edit'
-
-  get 'requests/index'
+  get '/courses/autocomplete' => 'courses#autocomplete'
 
   resources :courses
   resources :requests
@@ -25,7 +17,6 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   post '/courses/:id/enroll' => 'courses#enroll'
-
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

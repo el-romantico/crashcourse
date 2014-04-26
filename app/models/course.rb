@@ -7,7 +7,7 @@ class Course < ActiveRecord::Base
 
   validates :location, presence: true, allow_blank: false
   validates :name, presence: true, allow_blank: false
-  
+
   mount_uploader :picture, CoursePictureUploader
 
   def enrolled?(user)
@@ -21,9 +21,5 @@ class Course < ActiveRecord::Base
       description: description,
       tags: tags.map(&:label).join(" "),
     }
-  end
-
-  def autocomplete
-    render json: Course.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
 end
