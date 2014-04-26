@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  searchkick
+  searchkick autocomplete: ['tags']
 
   belongs_to :lecturer, class_name: 'User'
   has_and_belongs_to_many :tags
@@ -18,6 +18,7 @@ class Course < ActiveRecord::Base
     {
       name: name,
       location: location,
+      description: description,
       tags: tags.map(&:label).join(" "),
     }
   end
