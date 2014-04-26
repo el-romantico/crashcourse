@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
-    @courses = Course.where(lecturer_id: @user.id) || []
+    @courses_as_teacher = Course.where(lecturer_id: @user.id) || []
     @requests = @user.requests || []
   end
 end

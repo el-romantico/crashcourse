@@ -13,14 +13,21 @@
 <hr />
 <div class="container">
   <div class="row">
-      <div class="col-md-6">
-        <h3>Courses</h3>
-        <% @courses.each do |course| %>
+      <div class="col-md-4">
+        <h3>Teaching</h3>
+        <% @courses_as_teacher.each do |course| %>
           <h4><%= link_to course.name, course %></h4>
           <p><%= course.date %>, <%= course.location %></p>
         <% end %>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
+        <h3>Enrolled in</h3>
+        <% @user.courses.each do |course| %>
+          <h4><%= link_to course.name, course %></h4>
+          <p><%= course.date %>, <%= course.location %></p>
+        <% end %>
+      </div>
+      <div class="col-md-4">
         <h3>Requests</h3>
         <% @requests.each do |request| %>
           <h4><%= request.tags.map(&:label).join(', ') %> in <%= request.location %></h4>
