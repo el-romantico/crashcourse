@@ -13,4 +13,10 @@ class UsersController < ApplicationController
     @courses_as_teacher = Course.where(lecturer_id: @user.id) || []
     @requests = @user.requests || []
   end
+
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      params.require(:user).permit(:name)
+    end
 end

@@ -61,7 +61,7 @@
             <%= link_to 'New Request', new_request_path %>
           </li>
           <li>
-            <%= link_to 'Profile', current_user %>
+            <%= link_to "Howdy, #{current_user.first_name}", current_user %>
           </li>
           <li>
             <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
