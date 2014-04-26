@@ -4,7 +4,11 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    if params[:query].present?
+      @courses = Course.search(params[:query], page: params[:page])
+    else
+      @courses = Course.all.page params[:page]
+    end
   end
 
   # GET /courses/1
