@@ -4,6 +4,7 @@ class Course < ActiveRecord::Base
   belongs_to :lecturer, class_name: 'User'
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :users, autosave: true
+  has_one :location, autosave: true
 
   validates :location, presence: true, allow_blank: false
   validates :name, presence: true, allow_blank: false
@@ -22,4 +23,9 @@ class Course < ActiveRecord::Base
       tags: tags.map(&:label).join(" "),
     }
   end
+
+  def location_address
+    location.nil? ? '' : location.address
+  end
+
 end

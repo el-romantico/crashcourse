@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   include Taggable
+  include Geokit::Geocoders
 
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_action :require_login, only: [:edit, :update, :destroy]
@@ -51,7 +52,8 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params.merge(lecturer: current_user))
+    location = course_params[:location]
+    @course = Course.new(course_params.merge(lecturer: current_user, location: geocode_location(location)))
 
     respond_to do |format|
       if @course.save
@@ -67,8 +69,10 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
+    location = course_params[:location]
+
     respond_to do |format|
-      if @course.update(course_params)
+      if @course.update(course_params.merge(location: geocode_location(course_params[:location])))
          format.html { redirect_to @course, notice: 'Course was successfully updated.' }
          format.json { render :show, status: :ok, location: @course }
       else
@@ -109,5 +113,10 @@ class CoursesController < ApplicationController
              permit(:name, :date, :location, :description, :picture).
              merge(tags: extract_tags(params[:course][:tags])).
              merge(**current_user.admin? ? {approved: true} : {})
+    end
+
+    def geocode_location(location)
+      geo = GoogleGeocoder.geocode(location)
+      Location.new({lat: geo.lat, lng: geo.lng, address: location})
     end
 end

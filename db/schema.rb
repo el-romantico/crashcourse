@@ -24,7 +24,10 @@ ActiveRecord::Schema.define(version: 20140426194438) do
     t.boolean  "approved",         default: false
     t.integer  "lecturer_id"
     t.decimal  "min_participants"
+    t.integer  "location_id"
   end
+
+  add_index "courses", ["location_id"], name: "index_courses_on_location_id"
 
   create_table "courses_tags", id: false, force: true do |t|
     t.integer "course_id"
@@ -35,6 +38,15 @@ ActiveRecord::Schema.define(version: 20140426194438) do
     t.integer "user_id"
     t.integer "course_id"
   end
+
+  create_table "locations", force: true do |t|
+    t.integer "course_id"
+    t.string  "address"
+    t.float   "lat"
+    t.float   "lng"
+  end
+
+  add_index "locations", ["course_id"], name: "index_locations_on_course_id"
 
   create_table "requests", force: true do |t|
     t.string   "location"
