@@ -1,2 +1,14 @@
-<h1>Requests#show</h1>
-<p>Find me in app/views/requests/show.html.erb</p>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @request.location %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @request.tags.map(&:label).join ', ' %>
+</p>
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>

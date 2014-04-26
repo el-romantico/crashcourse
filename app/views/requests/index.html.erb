@@ -1,3 +1,12 @@
-<h1>Requests#index</h1>
-<p>Find me in app/views/requests/index.html.erb</p>
-<p>Or add <a href="/requests/new">a new request</a>
+<p>Add <a href="/requests/new">a new request</a>
+<% @requests.each do |request| %>
+  <div class="row">
+    <h2><%= request.location %></h2>
+    <p>
+    <% request.tags.each do |tag| %>
+      <%= tag.label %>
+    <% end %>
+    </p>
+    <p><%= link_to 'Show', request, :class => "btn btn-default" %></p>
+  </div>
+<% end %>
