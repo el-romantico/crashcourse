@@ -1,5 +1,4 @@
-<div class="col-md-4 col-md-offset-4">
-<%= form_for @course, :html => {:role => 'form', :class => 'form-horizontal', :multipart => true} do |f| %>
+<%= form_for @course, :html => {:multipart => true} do |f| %>
   <% if @course.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
@@ -36,8 +35,11 @@
     <%= f.label :picture %><br>
     <%= f.file_field :picture %>
   </div>
-  <div class="form-group">
-    <%= f.submit :class => "btn btn-success" %>
+  <div class="actions">
+    <% if current_user.admin? and !@course.approved? %>
+      <%= f.submit value: 'Update and approve', class: "btn btn-success" %>
+    <% else %>
+      <%= f.submit value: 'Update', class: "btn btn-success" %>
+    <% end %>
   </div>
 <% end %>
-</div>

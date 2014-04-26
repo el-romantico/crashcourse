@@ -5,14 +5,21 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :only => [:enroll]
 
-
   # GET /courses
   # GET /courses.json
   def index
     if params[:query].present?
-      @courses = Course.search(params[:query], page: params[:page])
+      if current_user.admin?
+        @courses = Course.search(params[:query], page: params[:page])
+      else
+        @courses = Course.search(params[:query], page: params[:page], where: {or: [{approved: true}, {lecturer_id: current_user.id}]})
+      end
     else
-      @courses = Course.all.page params[:page]
+      if current_user.admin?
+        @courses = Course.all.page params[:page]
+      else
+        @courses = Course.where("approved = ? or lecturer_id = ?", true, current_user.id)
+      end
     end
   end
 
@@ -87,6 +94,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :date, :location, :description, :picture)
+      p = params.require(:course).permit(:name, :date, :location, :description, :picture)
+      current_user.admin? ? p.merge(approved: true) : p
     end
 end
