@@ -8,6 +8,7 @@
 Course.create(name: 'Microeconomics Principles',
               date: '2014-04-26 15:30',
               location: 'Sofia',
+              approved: true,
               description: '''Introduction to the functions of individual decision-makers,
               both consumers and producers, within the larger economic system. Primary emphasis on the nature
               and functions of product markets, the theory of the firm under varying conditions of competition
@@ -17,6 +18,7 @@ Course.create(name: 'Microeconomics Principles',
 Course.create(name: 'Principles of Reactive Programming',
               date: '2014-04-27 10:30',
               location: 'Sofia',
+              approved: true,
               description: '''Learn how to write composable software that is event-driven, scalable under load,
               resilient and responsive in the presence of failures. Model systems after human organizations or
               inter-human communication.''',
@@ -25,6 +27,7 @@ Course.create(name: 'Principles of Reactive Programming',
 Course.create(name: 'Computer Science 101',
               date: '2014-04-20 15:30',
               location: 'Sofia',
+              approved: true,
               description: '''CS101 teaches the essential ideas of Computer Science for a zero-prior-experience
               audience. The course uses small coding experiments in the browser to play with the nature of computers,
               understanding their strengths and limitations. Sign up for the "To be announced" session to be notified
@@ -36,6 +39,7 @@ Course.create(name: 'Computer Science 101',
 Course.create(name: 'General Game Playing',
               date: '2014-04-29 15:30',
               location: 'Sofia',
+              approved: true,
               description: '''Learn about General Game Playing (GGP) and develop GGP programs capable of competing
               against humans and other programs in GGP competitions .''',
               min_participants: 20)

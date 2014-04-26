@@ -52,6 +52,9 @@
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
           <li>
+            <%= link_to 'My calendar', controller: :users, action: :calendar %>
+          </li>
+          <li>
             <%= link_to 'New Course', new_course_path %>
           </li>
           <li>

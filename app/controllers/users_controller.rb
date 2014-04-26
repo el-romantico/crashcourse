@@ -1,4 +1,4 @@
-class UsersController < Devise::SessionsController
+class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def calendar
