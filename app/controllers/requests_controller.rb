@@ -25,34 +25,13 @@ class RequestsController < ApplicationController
   # POST /requests.json
   def create
     @request = Request.new(request_params)
-
-    respond_to do |format|
-      if @request.save
-        tags = params[:request][:tags].split(',').map { |tag| Tag.where(:label => tag).first_or_create }
-        @request.tags << tags
-        format.html { redirect_to @request, notice: 'Request was successfully created.' }
-        format.json { render :show, status: :created, location: @request }
-      else
-        format.html { render :new }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
-      end
-    end
+    extract_args(params)
   end
 
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
-    respond_to do |format|
-      if @request.update(request_params)
-        tags = params[:request][:tags].split(',').map { |tag| Tag.where(:label => tag).first_or_create }
-        @request.tags << tags
-        format.html { redirect_to @request, notice: 'Request was successfully updated.' }
-        format.json { render :show, status: :ok, location: @request }
-      else
-        format.html { render :edit }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
-      end
-    end
+    extract_args(params)
   end
 
   # DELETE /requests/1
@@ -74,5 +53,19 @@ class RequestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
       params.require(:request).permit(:name, :date, :location, :description)
+    end
+
+    def extract_args(params)
+      respond_to do |format|
+        if @request.save
+          tags = params[:request][:tags].split(',').map { |tag| Tag.where(:label => tag).first_or_create }
+          @request.tags << tags
+          format.html { redirect_to @request, notice: 'Request was successfully created.' }
+          format.json { render :show, status: :created, location: @request }
+        else
+          format.html { render :new }
+          format.json { render json: @request.errors, status: :unprocessable_entity }
+        end
+      end
     end
 end
