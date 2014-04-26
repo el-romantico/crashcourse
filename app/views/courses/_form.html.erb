@@ -21,11 +21,11 @@
   </div>
   <div class="form-group">
     <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
+    <%= f.text_field :date, class: 'form-control', 'data-behaviour' => 'datepicker' %>
   </div>
   <div class="form-group">
     <%= f.label :min_participants %><br>
-    <%= f.text_field :min_participants %>
+    <%= f.text_field :min_participants, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :location %><br>
@@ -47,3 +47,12 @@
     <% end %>
   </div>
 <% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker({
+      format: "dd-mm-yyyy",
+      weekStart: 1,
+      autoclose: true
+    });
+  })
+</script>
