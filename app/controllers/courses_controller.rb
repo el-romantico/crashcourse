@@ -2,19 +2,24 @@ class CoursesController < ApplicationController
   include Taggable
 
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, :only => [:enroll]
 
   # GET /courses
   # GET /courses.json
   def index
     if params[:query].present?
-      if current_user.admin?
+      if !current_user
+        @courses = Course.search(params[:query], page: params[:page], where: {approved: true})
+      elsif current_user.admin?
         @courses = Course.search(params[:query], page: params[:page])
       else
         @courses = Course.search(params[:query], page: params[:page], where: {or: [{approved: true}, {lecturer_id: current_user.id}]})
       end
     else
-      if current_user.admin?
+      if !current_user
+        @courses = Course.where(approved: true)
+      elsif current_user.admin?
         @courses = Course.all.page params[:page]
       else
         @courses = Course.where("approved = ? or lecturer_id = ?", true, current_user.id)
@@ -39,7 +44,7 @@ class CoursesController < ApplicationController
   def enroll
     course = Course.find(params[:id])
     course.users << current_user
-
+ 
     redirect_to course, notice: 'Successfully enrolled in course.'
   end
 
@@ -89,12 +94,15 @@ class CoursesController < ApplicationController
       @course = Course.find(params[:id])
     end
 
+    def require_login
+      redirect_to new_user_session_path unless current_user
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      p = params.require(:course).
-                 permit(:name, :date, :location, :description, :picture).
-                 merge(tags: extract_tags(params[:course][:tags]))
-
-      current_user.admin? ? p.merge(approved: true) : p
+      params.require(:course).
+             permit(:name, :date, :location, :description, :picture).
+             merge(tags: extract_tags(params[:course][:tags])).
+             merge(**current_user.admin? ? {approved: true} : {})
     end
 end

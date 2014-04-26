@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20140426150805) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "picture"
-    t.decimal  "min_participants"
     t.boolean  "approved",         default: false
     t.integer  "lecturer_id"
+    t.decimal  "min_participants"
   end
 
   create_table "courses_tags", id: false, force: true do |t|

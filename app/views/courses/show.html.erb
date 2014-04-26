@@ -31,14 +31,16 @@
 </p>
 
 <% unless @course.enrolled? current_user %>
-  <%= button_to "Enroll", :action => 'enroll' %> |
+  <%= button_to "Enroll", action: 'enroll' %>
 <% end %>
-<% if current_user.admin? && !@course.approved? %>
-  <%= link_to 'Review', edit_course_path(@course) %> |
-<% else %>
-  <%= link_to 'Edit', edit_course_path(@course) %> |
+<% if current_user %>
+  <% if current_user.admin? && !@course.approved? %>
+    | <%= link_to 'Review', edit_course_path(@course) %>
+  <% else %>
+    | <%= link_to 'Edit', edit_course_path(@course) %>
+  <% end %>
+  <% if @course.lecturer == current_user || current_user.admin? %>
+    | <%= link_to 'Delete', course_path(@course), method: :delete,  data: { confirm: 'Are you certain you want to delete this?' } %>
+  <% end %>
 <% end %>
-<% if @course.lecturer == current_user || current_user.admin? %>
-  <%= link_to 'Delete', course_path(@course), method: :delete,  data: { confirm: 'Are you certain you want to delete this?' } %> |
-<% end %>
-<%= link_to 'Back', courses_path %>
+| <%= link_to 'Back', courses_path %>
