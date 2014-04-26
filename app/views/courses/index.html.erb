@@ -23,3 +23,18 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+var $vartypeahead = $("#query");
+var engine = new Bloodhound({
+  name: 'typeaheads',
+  remote: {"url":"/courses/autocomplete?query=%QUERY"},
+  datumTokenizer: function(d) { return d;},
+  queryTokenizer: function(d) { return d;}
+});
+engine.initialize();
+
+$vartypeahead.typeahead(
+  {"highlight": true },
+  {"source": engine.ttAdapter()});
+</script>
