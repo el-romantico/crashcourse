@@ -48,11 +48,6 @@ ActiveRecord::Schema.define(version: 20140426195359) do
 
   add_index "locations", ["course_id"], name: "index_locations_on_course_id"
 
-  create_table "notifications", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "requests", force: true do |t|
     t.string   "location"
     t.integer  "tag_id"
