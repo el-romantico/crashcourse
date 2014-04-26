@@ -20,5 +20,6 @@
   <%= @course.description %>
 </p>
 
+<%= button_to "Enroll", :action => 'enroll' %> |
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
