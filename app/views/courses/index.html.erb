@@ -1,6 +1,21 @@
-<%= form_tag '/', method: :get do %>
-  <%= text_field_tag :query, params[:query] %>
-  <%= submit_tag "Search" %>
+<div class="page-header">
+  <h1>
+    Courses
+    <% if params[:query] %>
+      <small> about <%= params[:query] %></small>
+    <% end %>
+  </h1>
+</div>
+<%= form_tag '/', method: :get, :class => 'navbar-form text-center',
+    :role => 'search', :id => 'search-form', :name => 'search-form'  do %>
+  <div class="input-group input-group-lg">
+    <%= text_field_tag :query, params[:query], :class => 'form-control', :style => 'width: 400px;', :placeholder => 'What do you want to learn about?' %>
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-success">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </div>
+  </div>
 <% end %>
 
 <% @courses.each_slice(3) do |courses_row| %>
