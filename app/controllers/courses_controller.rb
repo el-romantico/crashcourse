@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
       elsif current_user.admin?
         @courses = Course.all.page params[:page]
       else
-        @courses = Course.where("approved = ? or lecturer_id = ?", true, current_user.id)
+        @courses = Course.where("lecturer_id = ?", current_user.id)
       end
     end
   end
@@ -44,14 +44,14 @@ class CoursesController < ApplicationController
   def enroll
     course = Course.find(params[:id])
     course.users << current_user
- 
+
     redirect_to course, notice: 'Successfully enrolled in course.'
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
+    @course = Course.new(course_params.merge(lecturer: current_user))
 
     respond_to do |format|
       if @course.save
