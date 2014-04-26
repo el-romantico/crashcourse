@@ -1,7 +1,6 @@
 class CoursesController < ApplicationController
   include Taggable
 
-
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :only => [:enroll]
 
@@ -51,7 +50,6 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        @course.tags << extract_tags(params[:course][:tags])
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
@@ -65,8 +63,7 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1.json
   def update
     respond_to do |format|
-      if @course.update(request_params)
-         @course.tags << extract_tags(params[:course][:tags])
+      if @course.update(course_params)
          format.html { redirect_to @course, notice: 'Course was successfully updated.' }
          format.json { render :show, status: :ok, location: @course }
       else
@@ -94,7 +91,10 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      p = params.require(:course).permit(:name, :date, :location, :description, :picture)
+      p = params.require(:course).
+                 permit(:name, :date, :location, :description, :picture).
+                 merge(tags: extract_tags(params[:course][:tags]))
+
       current_user.admin? ? p.merge(approved: true) : p
     end
 end

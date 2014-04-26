@@ -13,11 +13,11 @@
 
   <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name, :class => 'form-control' %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :tags %><br>
-    <%= f.text_field :tags, :value => @course.tags.map(&:label).join, :class => 'form-control' %>
+    <%= f.text_field :tags, value: @course.tags.map(&:label).join(', '), class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :date %><br>
@@ -25,11 +25,11 @@
   </div>
   <div class="form-group">
     <%= f.label :location %><br>
-    <%= f.text_field :location, :class => 'form-control' %>
+    <%= f.text_field :location, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :description %><br>
-    <%= f.text_area :description, :class => 'form-control' %>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :picture %><br>
