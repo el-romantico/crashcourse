@@ -8,7 +8,10 @@
 location = Location.create(address: "15 Tsar Osvoboditel Blvd,1504 Sofia",
                 lat: 42.212131,
                 lng: 23.234141)
-
+User.create(name: 'Antonio JAVAldi',
+              email: 'root@example.org',
+              password: 'testtest',
+              password_confirmation: 'testtest')
 Course.create(name: 'Microeconomics Principles',
               date: '2014-04-26 15:30',
               approved: true,
