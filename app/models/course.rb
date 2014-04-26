@@ -13,4 +13,13 @@ class Course < ActiveRecord::Base
   def enrolled?(user)
     users.include? user
   end
+
+  def search_data
+    {
+      name: name,
+      location: location,
+      tags: tags.map(&:label).join(" "),
+    }
+  end
+
 end
