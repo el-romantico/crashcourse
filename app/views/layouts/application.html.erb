@@ -55,14 +55,17 @@
             <%= link_to 'New Course', new_course_path %>
           </li>
           <li>
-            <%= link_to 'Изход', destroy_user_session_path, method: :delete %>
+            <%= link_to 'New Request', new_request_path %>
+          </li>
+          <li>
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
           </li>
           <% else %>
             <li>
-              <%= link_to 'Вход', new_user_session_path %>
+              <%= link_to 'Sign In', new_user_session_path %>
             </li>
             <li>
-              <%= link_to 'Регистрация', new_user_registration_path %>
+              <%= link_to 'Sign Up', new_user_registration_path %>
             </li>
           <% end %>
         </ul>
