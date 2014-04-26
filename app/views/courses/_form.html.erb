@@ -16,6 +16,10 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :tags %><br>
+    <%= f.text_field :tags, :value => @course.tags.map(&:label).join %>
+  </div>
+  <div class="field">
     <%= f.label :date %><br>
     <%= f.datetime_select :date %>
   </div>

@@ -58,7 +58,9 @@ class RequestsController < ApplicationController
     def extract_args(params)
       respond_to do |format|
         if @request.save
-          tags = params[:request][:tags].split(',').map { |tag| Tag.where(:label => tag).first_or_create }
+          tags = params[:request][:tags].split(',')
+                                        .map(&:strip)
+                                        .map { |tag| Tag.where(:label => tag).first_or_create }
           @request.tags << tags
           format.html { redirect_to @request, notice: 'Request was successfully created.' }
           format.json { render :show, status: :created, location: @request }
