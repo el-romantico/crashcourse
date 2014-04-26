@@ -4,8 +4,8 @@
     <% if @user.admin? %>
       <small><span class="glyphicon glyphicon-ok-sign" title="Verified" id="verified" style="color: #428bca;"></span></small>
     <% end %>
-    <% if @user.email %>
-      <%= @user.email %>
+    <% if @user.name %>
+      <%= @user.name %>
     <% end %>
     <small><%= @user.email %></small>
   </h3>
