@@ -36,6 +36,9 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'searchkick'
 
 gem 'will_paginate'
+
+gem 'carrierwave'
+gem 'mini_magick'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

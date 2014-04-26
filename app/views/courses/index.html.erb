@@ -9,6 +9,7 @@
     <% courses_row.each do |course| %>
       <div class="col-md-4">
         <h2><%= course.name %></h2>
+        <%= image_tag(course.picture.url(:thumb)) %>
         <p><%= course.description %></p>
         <p><%= course.date %>, <%= course.location %></p>
         <p><%= link_to 'Show', course, :class => "btn btn-default" %></p>
