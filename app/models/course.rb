@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  searchkick text_start: [:name]
+  searchkick word_middle: [:name]
 
   belongs_to :lecturer, class_name: 'User'
   has_and_belongs_to_many :tags

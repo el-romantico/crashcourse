@@ -11,11 +11,12 @@ class CoursesController < ApplicationController
   def index
     if params[:query].present?
       if !current_user
-        @courses = Course.search(params[:query], page: params[:page], where: {approved: true})
+        @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or")
+        @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or").select { |i| i.approved == true }
       elsif current_user.admin?
-        @courses = Course.search(params[:query], page: params[:page])
+        @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or")
       else
-        @courses = Course.search(params[:query], page: params[:page], where: {or: [{approved: true}, {lecturer_id: current_user.id}]})
+        @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or").select { |i| i.approved == true or i.lecturer == current_user }
       end
     else
       if !current_user
