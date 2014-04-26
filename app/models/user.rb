@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_and_belongs_to_many :courses
-  has_many :requests
+  has_many :requests, foreign_key: 'requester_id'
 end

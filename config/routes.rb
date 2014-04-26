@@ -1,14 +1,26 @@
 Rails.application.routes.draw do
   get '/courses/autocomplete' => 'courses#autocomplete'
 
+  get '/calendar' => 'calendar#index'
+
+  get 'requests/show'
+
+  get 'requests/new'
+
+  get 'requests/update'
+
+  get 'requests/edit'
+
+  get 'requests/index'
+
   resources :courses
   resources :requests
 
   devise_for :users
-
-  devise_scope :user do
-    get '/users/calendar' => 'users#calendar'
+  resources :users, only: %w(index show) do
+    resources :attributions, only: %w(new create edit update)
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

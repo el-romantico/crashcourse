@@ -52,13 +52,16 @@
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
           <li>
-            <%= link_to 'My calendar', controller: :users, action: :calendar %>
+            <%= link_to 'My Calendar', calendar_path %>
           </li>
           <li>
             <%= link_to 'New Course', new_course_path %>
           </li>
           <li>
             <%= link_to 'New Request', new_request_path %>
+          </li>
+          <li>
+            <%= link_to 'Profile', current_user %>
           </li>
           <li>
             <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
