@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :requests
 
   devise_for :users
+
+  devise_scope :user do
+    get '/users/calendar' => 'users#calendar'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -20,7 +24,7 @@ Rails.application.routes.draw do
   root to: 'courses#index'
 
   # Example of regular route:
-    post '/courses/:id/enroll' => 'courses#enroll'
+  post '/courses/:id/enroll' => 'courses#enroll'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

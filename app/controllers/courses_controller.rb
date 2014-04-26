@@ -28,16 +28,10 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    @course = Course.find(params[:id])
+    course = Course.find(params[:id])
+    course.users << current_user
 
-    respond_to do |format|
-      if @course.save
-        @course.users << current_user
-        format.html { redirect_to @course, notice: 'Successfully enrolled in course.' }
-      else
-        format.html { render :show }
-      end
-    end
+    redirect_to course, notice: 'Successfully enrolled in course.'
   end
 
   # POST /courses

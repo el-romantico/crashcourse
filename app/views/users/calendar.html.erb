@@ -1,0 +1,11 @@
+<div id="calendar">
+  <%= calendar_for(@courses) do |t| %>
+    <%= t.head('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') %>
+    <%= t.day do |day, courses| %>
+      <%= day.day %> <br />
+      <% courses.each do |course| %>
+        <%= link_to h(course.name), course %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
