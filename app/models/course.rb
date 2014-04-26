@@ -5,6 +5,7 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :users, autosave: true
   has_one :location, autosave: true
+  has_many :notifications, :foreign_key => 'course_id', :class_name => "Notification"
 
   validates :location, presence: true, allow_blank: false
   validates :name, presence: true, allow_blank: false

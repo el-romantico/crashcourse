@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :courses
   has_many :requests, foreign_key: 'requester_id'
-
   mount_uploader :picture, UserPictureUploader
 
   validates_format_of :name, with: /[\p{L}]+\s[\p{L}+]/
