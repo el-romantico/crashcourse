@@ -13,6 +13,12 @@
 <hr />
 <div class="container">
   <div class="row">
+    <div class="col-md-4">
+      <%= image_tag(@user.picture.url(:thumb)) %>
+    </div>
+  </div>
+
+  <div class="row">
       <div class="col-md-4">
         <h3>Teaching</h3>
         <% @courses_as_teacher.each do |course| %>

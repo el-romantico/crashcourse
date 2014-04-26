@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :requests
 
   devise_for :users
-  resources :users, only: %w(index show) do
+  resources :users, only: %w(index show edit update) do
     resources :attributions, only: %w(new create edit update)
   end
 

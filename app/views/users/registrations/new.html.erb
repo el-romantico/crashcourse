@@ -2,7 +2,7 @@
   <h1>Sign Up</h1>
 </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:role => 'form', :class => 'form-horizontal col-sm-offset-2', :id => 'login_form'}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:role => 'form', :class => 'form-horizontal col-sm-offset-2', :id => 'login_form', :multipart => true}) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="form-group">
