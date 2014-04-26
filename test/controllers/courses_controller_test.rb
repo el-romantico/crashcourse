@@ -1,8 +1,12 @@
 require 'test_helper'
 
 class CoursesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @course = courses(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in users(:root)
   end
 
   test "should get index" do
@@ -18,7 +22,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "should create course" do
     assert_difference('Course.count') do
-      post :create, course: { date: @course.date, description: @course.description, location: @course.location, name: @course.name }
+      post :create, course: { date: @course.date, description: @course.description, location: @course.location, name: @course.name, tags: '' }
     end
 
     assert_redirected_to course_path(assigns(:course))
@@ -28,19 +32,10 @@ class CoursesControllerTest < ActionController::TestCase
     get :show, id: @course
     assert_response :success
   end
-
-  test "should get edit" do
-    get :edit, id: @course
-    assert_response :success
-  end
-
-  test "should update course" do
-    patch :update, id: @course, course: { date: @course.date, description: @course.description, location: @course.location, name: @course.name }
-    assert_redirected_to course_path(assigns(:course))
-  end
-
+  
   test "should destroy course" do
     assert_difference('Course.count', -1) do
+
       delete :destroy, id: @course
     end
 
