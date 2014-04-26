@@ -11,7 +11,6 @@ class CoursesController < ApplicationController
   def index
     if params[:query].present?
       if !current_user
-        @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or")
         @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or").select { |i| i.approved == true }
       elsif current_user.admin?
         @courses = Course.search(params[:query], page: params[:page], fields: [{name: :word_middle}], operator: "or")
@@ -94,7 +93,7 @@ class CoursesController < ApplicationController
   end
 
   def autocomplete
-    resultset = Course.search(params[:query], fields: [{name: :text_start}])
+    resultset = Course.search(params[:query], fields: [{name: :word_middle}])
     render json: resultset.map { |course| {value: course.name} }
   end
 
