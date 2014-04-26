@@ -9,9 +9,10 @@ class User < ActiveRecord::Base
 
   mount_uploader :picture, UserPictureUploader
 
-  validates_format_of :name, with: /[\w]+\s[\w+]/
+  validates_format_of :name, with: /[\p{L}]+\s[\p{L}+]/
 
   def first_name
     name.split(' ').first
   end
 end
+
