@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
       elsif current_user.admin?
         @courses = Course.all.page params[:page]
       else
-        @courses = Course.where("lecturer_id = ?", current_user.id)
+        @courses = Course.where("approved = ? or lecturer_id = ?", true, current_user.id)
       end
     end
   end
