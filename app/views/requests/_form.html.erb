@@ -1,4 +1,5 @@
-<%= form_for(@request) do |f| %>
+<div class="col-md-4 col-md-offset-4">
+<%= form_for @request, :html => {:role => 'form', :class => 'form-horizontal'} do |f| %>
   <% if @request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@request.errors.count, "error") %> prohibited this course from being saved:</h2>
@@ -11,15 +12,16 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :tags %><br>
-    <%= f.text_field :tags, :value => @request.tags.map(&:label).join %>
+    <%= f.text_field :tags, :value => @request.tags.map(&:label).join, :class => 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :location %><br>
-    <%= f.text_field :location %>
+    <%= f.text_field :location, :class => 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.submit :class => "btn btn-success" %>
   </div>
 <% end %>
+</div>
