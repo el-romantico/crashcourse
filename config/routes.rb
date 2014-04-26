@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
+  get 'requests/show'
+
+  get 'requests/new'
+
+  get 'requests/update'
+
+  get 'requests/edit'
+
+  get 'requests/index'
+
   resources :courses
+  resources :requests
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
