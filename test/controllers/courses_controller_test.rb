@@ -7,9 +7,6 @@ class CoursesControllerTest < ActionController::TestCase
     @course = courses(:one)
     @request.env["devise.mapping"] = Devise.mappings[:admin]
 
-    puts "ASD"
-    puts users(:root)
-
     sign_in users(:root)
   end
 
