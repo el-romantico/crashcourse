@@ -7,6 +7,5 @@
 
 == Deployment
 * bundle install
-* rake searchkick:reindex CLASS=Course
-* rails server
+* rake l
 
