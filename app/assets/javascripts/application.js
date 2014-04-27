@@ -15,4 +15,5 @@
 //= require twitter/typeahead
 //= require holder
 //= require bootstrap-datetimepicker.min.js
+//= require notifications.js
 //= require turbolinks

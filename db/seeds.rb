@@ -76,7 +76,7 @@ Course.create(name: 'General Game Playing',
               min_participants: 20)
 
 request = Request.create(location: location,
-                         requester: admin,
+                         requester: user,
                          tags: [ruby_tag, python_tag])
 
 Notification.create(seen: false,

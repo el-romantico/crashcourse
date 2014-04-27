@@ -61,6 +61,7 @@ class CoursesController < ApplicationController
       if @course.save
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
+        notify_users
       else
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -75,6 +76,7 @@ class CoursesController < ApplicationController
       if @course.update(course_params.merge(location: geocode_location(course_params[:location])))
          format.html { redirect_to @course, notice: 'Course was successfully updated.' }
          format.json { render :show, status: :ok, location: @course }
+         notify_users
       else
          format.html { render :edit }
          format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -117,5 +119,25 @@ class CoursesController < ApplicationController
              permit(:name, :date, :location, :description, :picture).
              merge(tags: extract_tags(params[:course][:tags])).
              merge(**current_user.admin? ? {approved: true} : {})
+    end
+
+    def geocode_location(location)
+      geo = GoogleGeocoder.geocode(location)
+      Location.new({lat: geo.lat, lng: geo.lng, address: location}) if geo.success
+    end
+
+    def notify_users
+      requests = []
+      @course.tags.each do |tag|
+        requests = requests + Request.joins(:tags).where("tags.id = :tag_id", {tag_id: tag.id}).to_a
+      end
+      requests = requests.uniq { |r| r.id }
+      requests.each do |request|
+        notification = Notification.create(seen: false,
+                                           course: @course,
+                                           request: request,
+                                           lecturer: @course.lecturer,
+                                           subscriber: request.requester)
+      end
     end
 end

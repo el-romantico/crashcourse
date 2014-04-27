@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
-
+  before_action :notifications
   protected
 
   def configure_devise_permitted_parameters
@@ -17,6 +17,12 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:sign_up) {
         |u| u.permit(registration_params)
       }
+    end
+  end
+
+  def notifications
+    if current_user
+      @notifications = Notification.where(subscriber: current_user).take(15)
     end
   end
 end
