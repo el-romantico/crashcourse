@@ -1,55 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="panel-heading">
+  <h3><%= @course.name %></h3>
+  <ul class="nav nav-pills">
+    <li>
+      <h3 style="margin:3px"><small>
+        <% if @course.approved? %>
+          <span class="label label-success">Approved</span>
+        <% else %>
+          <span class="label label-warning">Waiting for approval</span>
+        <% end %>
+        In Sofia on
+        <%= @course.date.strftime('%B %e, %Y at %l:%M %p') %>
+      </small></h3>
+    </li>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @course.date %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @course.location %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
-
-<p>
-  <strong>
-    <% if @course.approved? %>
-      Approved
-    <% else %>
-      Waiting for approval
-    <% end %>
-  </strong>
-</p>
-
-<p>
-  Enrolled
-  <ul>
-    <% @course.users.each do |user| %>
-      <li><%=  link_to user.email, user %></li>
-    <% end %>
   </ul>
-</p>
-
-<% unless @course.enrolled? current_user %>
-  <%= button_to "Enroll", action: 'enroll' %>
-<% end %>
-<% if current_user %>
-  <% if current_user.admin? && !@course.approved? %>
-    | <%= link_to 'Review', edit_course_path(@course) %>
-  <% else %>
-    | <%= link_to 'Edit', edit_course_path(@course) %>
-  <% end %>
-  <% if @course.lecturer == current_user || current_user.admin? %>
-    | <%= link_to 'Delete', course_path(@course), method: :delete,  data: { confirm: 'Are you certain you want to delete this?' } %>
-  <% end %>
-<% end %>
-| <%= link_to 'Back', courses_path %>
+</div>
+<hr style="margin-top:0;" />
+<div class="row">
+  <div class="col-sm-4">
+    <div class="thumbnail">
+      <% if @course.picture.present? %>
+        <%= image_tag(@course.picture.url(:thumb)) %>
+      <% else %>
+        <%= holder_tag '320x240' %>
+      <% end %>
+    </div>
+    <% unless @course.enrolled? current_user %>
+      <%= button_to "Enroll", {action: 'enroll'}, class: "btn btn-success col-sm-12" %>
+    <% end %>
+    <% if current_user %>
+      <% if current_user.admin? && !@course.approved? %>
+        <%= button_to 'Review', edit_course_path(@course), method: :get, class: "btn btn-info col-sm-12", style: 'margin-top: 5px;' %>
+      <% else %>
+        <%= button_to 'Edit', edit_course_path(@course), method: :get, class: "btn btn-info col-sm-12", style: 'margin-top: 5px;' %>
+      <% end %>
+      <% if @course.lecturer == current_user || current_user.admin? %>
+        <%= button_to 'Delete', course_path(@course), method: :delete,  data: { confirm: 'Are you certain you want to delete this?' }, class: "btn btn-danger col-sm-12", style: 'margin-top: 5px;' %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-sm-8">
+    <div class="well"><%= @course.description %></div>
+  </div>
+</div>
