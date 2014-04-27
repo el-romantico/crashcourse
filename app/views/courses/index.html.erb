@@ -2,12 +2,8 @@
   <%= form_tag '/', method: :get, :class => 'navbar-form text-center',
       :role => 'search', :id => 'search-form', :name => 'search-form'  do %>
     <div class="input-group input-group-lg">
-      <%= text_field_tag :query, params[:query], :class => 'typeahead tt-query', :style => 'width: 600px', :placeholder => 'What do you want to learn about?', :autocomplete => "off",  :spellcheck => false %>
-      <div class="input-group-btn" style="left: -52px;">
-        <button type="submit" class="btn btn-success">
-          <span class="glyphicon glyphicon-search"></span>
-        </button>
-      </div>
+      <%= text_field_tag :query, params[:query], :class => 'typeahead tt-query', :style => 'width: 600px', :placeholder => 'What do you want to learn about?', :autocomplete => "off",  :spellcheck => false, :autofocus => true %>
+      <%= submit_tag 'Save', :style => "visibility:hidden;" %>
       <ul class="typeahead typeahead-long dropdown-menu" style="top: 497px; left: 410px; display: none;"></ul>
     </div>
   <% end %>
