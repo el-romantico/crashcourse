@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def notifications
     if current_user
-      @has_notifications = Notification.where("subscriber_id = ? and seen = ?", current_user.id, false).size
+      @has_notifications = Notification.where("subscriber_id = ? and seen = ?", current_user.id, false).size > 0
     end
   end
 end
