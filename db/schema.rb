@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427110000) do
+ActiveRecord::Schema.define(version: 20140427123755) do
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140427110000) do
     t.string   "picture"
     t.boolean  "approved",         default: false
     t.integer  "lecturer_id"
-    t.integer  "min_participants"
+    t.decimal  "min_participants", default: 0.0
     t.integer  "location_id"
   end
 

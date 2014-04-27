@@ -1,5 +1,5 @@
-class AddMinParticipantsToCourses < ActiveRecord::Migration
+  class AddMinParticipantsToCourses < ActiveRecord::Migration
   def change
-    add_column :courses, :min_participants, :number, :default => 0
+    change_column :courses, :min_participants, :number, :default => 0
   end
 end
