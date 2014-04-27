@@ -12,7 +12,14 @@ $(document).ready(function() {
     $.ajax({
       url: link,
       success: function(response){
-          $('#'+div_id).html(response)}});
+          $('#'+div_id).html(response)
+          $('.notification-item').each(function(index, div) {
+            notificationId = $(div).attr("data-id")
+            url = '/notifications/' + notificationId + '/see'
+            $.get(url);
+          });
+        }
+      });
     return '<div id="'+ div_id +'">Loading...</div>';
   }
 });
