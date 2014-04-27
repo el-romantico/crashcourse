@@ -2,9 +2,9 @@ class CoursesController < ApplicationController
   include Taggable
   include Geolocation
 
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll, :withdraw]
   before_action :require_eligible, only: [:edit, :update, :destroy]
-  before_action :require_login, only: [:enroll]
+  before_action :require_login, only: [:enroll, :withdraw]
 
   # GET /courses
   # GET /courses.json
@@ -48,7 +48,13 @@ class CoursesController < ApplicationController
   def enroll
     @course.users << current_user
 
-    redirect_to @course, notice: 'Successfully enrolled in course.'
+    redirect_to @course, notice: 'Successfully enrolled in course'
+  end
+
+  def withdraw
+    @course.users.destroy(current_user)
+
+    redirect_to @course, notice: 'Successfully withdrawed from course'
   end
 
   # POST /courses

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   post '/courses/:id/enroll' => 'courses#enroll'
+  post '/courses/:id/withdraw' => 'courses#withdraw'
   get '/geo_scope_courses' => 'courses#geo_scope_courses'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
