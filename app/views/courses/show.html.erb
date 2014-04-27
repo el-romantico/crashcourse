@@ -1,11 +1,12 @@
 <div class="panel-heading">
-  <h3><%= @course.name %></h3>
+  <h3><%= @course.name %>
+      <% if @course.approved? %>
+        <small><span class="glyphicon glyphicon-ok-sign" title="Verified" id="verified" style="color: #428bca;"></span></small>
+      <% end %></h3>
   <ul class="nav nav-pills">
     <li>
       <h3 style="margin:3px"><small>
-        <% if @course.approved? %>
-          <span class="label label-success">Approved</span>
-        <% else %>
+        <% unless @course.approved? %>
           <span class="label label-warning">Waiting for approval</span>
         <% end %>
         In <%= @course.location_city %> on <%= formatted_date(@course.date) %>
