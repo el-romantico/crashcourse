@@ -3,7 +3,7 @@ class RequestsController < ApplicationController
   include Geolocation
 
 
-  before_action :set_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_request, only: [:edit, :update, :destroy]
   before_action :require_eligible, only: [:edit, :update, :destroy]
   before_action :require_login, only: [:new]
 
@@ -11,11 +11,23 @@ class RequestsController < ApplicationController
   # GET /requests.json
   def index
     @requests = Request.all
+    @tags = Tag.uniq.pluck(:label)
   end
 
   # GET /requests/1
   # GET /requests/1.json
   def show
+    @tags = Tag.uniq.pluck(:label)
+    @filtered_tags = Tag.where(label: params[:id])
+
+    @requests = []
+    @filtered_tags.each do |tag|
+      @requests += Request.joins(:tags).where("tags.id = :tag_id", {tag_id: tag.id}).to_a
+    end
+
+    @requests.uniq! { |r| r.id }
+
+    render 'index'
   end
 
   # GET /requests/new

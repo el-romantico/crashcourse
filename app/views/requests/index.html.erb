@@ -1,11 +1,13 @@
-<% @requests.each do |request| %>
-  <div class="row">
-    <h2>
-      <% request.tags.each do |tag| %>
-        <%= tag.label %>
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <% @tags.each do |tag| %>
+        <li><%= link_to tag, '/requests/' + tag %></li>
       <% end %>
-    </h2>
-    <p><%= request.location_address %></p>
-    <p><%= link_to 'Show', request, :class => "btn btn-default" %></p>
+    </ul>
   </div>
-<% end %>
+
+  <div id="js-requests-list" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <%= render 'courses/tags', {requests: @requests} %>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<% @requests.each do |request| %>
+<div class="row">
+  <h3>
+    <% request.tags.each do |tag| %>
+      <%= tag.label %>
+     <% end %>
+  </h3>
+  <p><%= request.location_address %></p></div><hr />
+
+<% end %>
