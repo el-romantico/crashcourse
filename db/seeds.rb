@@ -33,7 +33,7 @@ python_tag = Tag.create(label: "Python")
 economics_tag = Tag.create(label: "Economics")
 
 
-Course.create(name: 'Microeconomics Principles',
+macroeconomics = Course.create(name: 'Microeconomics Principles',
               date: '2014-04-26 15:30',
               approved: true,
               location: location,
@@ -43,8 +43,10 @@ Course.create(name: 'Microeconomics Principles',
               and functions of product markets, the theory of the firm under varying conditions of competition
               and monopoly, and the role of government in promoting efficiency in the economy.''',
               min_participants: 5)
+macroeconomics[:picture] = 'macroeconomics.png'
+macroeconomics.save
 
-programming = Course.create(name: 'Principles of Reactive Programming',
+reactive_programming = Course.create(name: 'Principles of Reactive Programming',
               date: '2014-04-27 10:30',
               approved: true,
               location: location,
@@ -53,8 +55,10 @@ programming = Course.create(name: 'Principles of Reactive Programming',
               resilient and responsive in the presence of failures. Model systems after human organizations or
               inter-human communication.''',
               min_participants: 10)
+reactive_programming[:picture] =  'reactive_programming.jpg'
+reactive_programming.save
 
-Course.create(name: 'Computer Science 101',
+computer_science = Course.create(name: 'Computer Science 101',
               date: '2014-04-20 15:30',
               approved: true,
               location: location,
@@ -66,21 +70,25 @@ Course.create(name: 'Computer Science 101',
               right away. Self-Study mode makes all the videos and assignments available to be done at your own pace,
               but without a certificate of completion at the end.''',
               min_participants: 3)
+computer_science[:picture] = 'computer_science.png'
+computer_science.save
 
-Course.create(name: 'General Game Playing',
+game_playing = Course.create(name: 'General Game Playing',
               date: '2014-04-29 15:30',
               approved: true,
               location: location,
               description: '''Learn about General Game Playing (GGP) and develop GGP programs capable of competing
               against humans and other programs in GGP competitions .''',
               min_participants: 20)
+game_playing[:picture] = 'game_playing.jpg'
+game_playing.save
 
 request = Request.create(location: location,
                          requester: user,
                          tags: [ruby_tag, python_tag])
 
 Notification.create(seen: false,
-                    course: programming,
+                    course: reactive_programming,
                     request: request,
                     lecturer: moderator,
                     subscriber: user)

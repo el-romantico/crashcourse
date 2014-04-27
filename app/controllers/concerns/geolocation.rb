@@ -9,7 +9,7 @@ module Geolocation
                   lng: geolocation.lng,
                   address: location,
                   city: geolocation.city,
-                  country: geolocation.country}) if geolocation.success
+                  country: geolocation.country})
   end
 
 end
