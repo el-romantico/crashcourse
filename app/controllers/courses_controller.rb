@@ -30,6 +30,8 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @current_participants_count = @course.users.size
+    @minimum_participants = @course.min_participants
   end
 
   # GET /courses/new
