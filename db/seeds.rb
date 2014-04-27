@@ -79,8 +79,8 @@ request = Request.create(location: location,
                          requester: admin,
                          tags: [ruby_tag, python_tag])
 
-# Notification.create(seen: false,
-#                     course: programming,
-#                     request: request,
-#                     lecturer: moderator,
-#                     subscriber: user)
+Notification.create(seen: false,
+                    course: programming,
+                    request: request,
+                    lecturer: moderator,
+                    subscriber: user)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427083105) do
+ActiveRecord::Schema.define(version: 20140427085229) do
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -40,15 +40,12 @@ ActiveRecord::Schema.define(version: 20140427083105) do
   end
 
   create_table "locations", force: true do |t|
-    t.integer "course_id"
-    t.string  "address"
-    t.float   "lat"
-    t.float   "lng"
-    t.string  "city"
-    t.string  "country"
+    t.string "address"
+    t.float  "lat"
+    t.float  "lng"
+    t.string "city"
+    t.string "country"
   end
-
-  add_index "locations", ["course_id"], name: "index_locations_on_course_id"
 
   create_table "notifications", force: true do |t|
     t.boolean  "seen"
@@ -66,7 +63,10 @@ ActiveRecord::Schema.define(version: 20140427083105) do
     t.integer  "requester_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "location_id"
   end
+
+  add_index "requests", ["location_id"], name: "index_requests_on_location_id"
 
   create_table "requests_tags", id: false, force: true do |t|
     t.integer "request_id"

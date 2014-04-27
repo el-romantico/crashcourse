@@ -1,10 +1,12 @@
 class Course < ActiveRecord::Base
+  include Locatable
+
   searchkick word_middle: [:name]
 
   belongs_to :lecturer, class_name: 'User'
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :users, autosave: true
-  has_one :location, autosave: true
+  belongs_to :location
   has_many :notifications, :foreign_key => 'course_id', :class_name => "Notification"
 
   validates :location, presence: true, allow_blank: false
@@ -23,14 +25,6 @@ class Course < ActiveRecord::Base
       description: description,
       tags: tags.map(&:label).join(" "),
     }
-  end
-
-  def location_address
-    location.nil? ? '' : location.address
-  end
-
-  def location_city
-    location.nil? ? '' : location.city
   end
 
 end

@@ -1,4 +1,5 @@
 module Taggable
+  include Geokit::Geocoders
   extend ActiveSupport::Concern
 
   def extract_tags(tag_labels)
