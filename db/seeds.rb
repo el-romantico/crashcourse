@@ -30,6 +30,7 @@ ruby_tag = Tag.create(label: "Ruby")
 python_tag = Tag.create(label: "Python")
 economics_tag = Tag.create(label: "Economics")
 
+
 Course.create(name: 'Microeconomics Principles',
               date: '2014-04-26 15:30',
               approved: true,

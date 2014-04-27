@@ -97,6 +97,10 @@ class CoursesController < ApplicationController
     render json: resultset.map { |course| {value: course.name} }
   end
 
+  def geo_scope_courses
+    render json: Course.all.map(&:location).reject(&:blank?)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -117,6 +121,6 @@ class CoursesController < ApplicationController
 
     def geocode_location(location)
       geo = GoogleGeocoder.geocode(location)
-      Location.new({lat: geo.lat, lng: geo.lng, address: location})
+      Location.new({lat: geo.lat, lng: geo.lng, address: location}) if geo.success
     end
 end
