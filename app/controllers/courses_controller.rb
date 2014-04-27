@@ -3,7 +3,8 @@ class CoursesController < ApplicationController
   include Geolocation
 
   before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll]
-  before_action :require_eligible, only: [:edit, :update, :destroy, :enroll]
+  before_action :require_eligible, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [:enroll]
 
   # GET /courses
   # GET /courses.json
@@ -45,9 +46,9 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    course.users << current_user
+    @course.users << current_user
 
-    redirect_to course, notice: 'Successfully enrolled in course.'
+    redirect_to @course, notice: 'Successfully enrolled in course.'
   end
 
   # POST /courses
@@ -112,6 +113,10 @@ class CoursesController < ApplicationController
       unless current_user && (current_user.admin? || current_user == @course.lecturer)
         redirect_to @course
       end
+    end
+
+    def require_login
+      redirect_to new_user_session_path unless current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
