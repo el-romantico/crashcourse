@@ -28,13 +28,13 @@
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= @participants_progress %>%;">
       </div>
     </div>
-    <% unless @course.enrolled? current_user %>
+    <% unless @course.enrolled?(current_user) || @course.lecturer == current_user %>
       <%= button_to "Enroll", {action: 'enroll'}, class: "btn btn-success col-sm-12" %>
     <% end %>
     <% if current_user %>
       <% if current_user.admin? && !@course.approved? %>
         <%= button_to 'Review', edit_course_path(@course), method: :get, class: "btn btn-info col-sm-12", style: 'margin-top: 5px;' %>
-      <% else %>
+      <% elsif current_user.admin? || current_user == @course.lecturer %>
         <%= button_to 'Edit', edit_course_path(@course), method: :get, class: "btn btn-info col-sm-12", style: 'margin-top: 5px;' %>
       <% end %>
       <% if @course.lecturer == current_user || current_user.admin? %>

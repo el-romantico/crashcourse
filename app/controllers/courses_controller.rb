@@ -2,8 +2,8 @@ class CoursesController < ApplicationController
   include Taggable
   include Geolocation
 
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:edit, :update, :destroy, :enroll]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll]
+  before_action :require_eligible, only: [:edit, :update, :destroy, :enroll]
 
   # GET /courses
   # GET /courses.json
@@ -45,7 +45,6 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    course = Course.find(params[:id])
     course.users << current_user
 
     redirect_to course, notice: 'Successfully enrolled in course.'
@@ -108,15 +107,17 @@ class CoursesController < ApplicationController
     def set_course
       @course = Course.find(params[:id])
     end
-
-    def require_login
-      redirect_to new_user_session_path unless current_user
+    
+    def require_eligible
+      unless current_user && (current_user.admin? || current_user == @course.lecturer)
+        redirect_to @course
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).
-             permit(:name, :date, :location, :description, :picture).
+             permit(:name, :date, :location, :description, :picture, :min_participants).
              merge(tags: extract_tags(params[:course][:tags])).
              merge(**current_user.admin? ? {approved: true} : {})
     end
