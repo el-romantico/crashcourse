@@ -63,9 +63,11 @@
         <div class="navbar-header">
           <%= link_to 'Patterns', patterns_view_path, :class => 'navbar-brand' %>
         </div>
-        <div class="navbar-header">
-          <button id="toggle_notifications" type="button" class="btn btn-default btn-lg">
-        </div>
+        <% if user_signed_in? %>
+          <div class="navbar-header">
+            <button id="toggle_notifications" type="button" class="btn btn-default btn-lg">
+          </div>
+        <% end %>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
           <li>
@@ -105,20 +107,18 @@
 
     <span id="notification_panel" style="visibility:hidden;position:fixed;top:50px;left:220px;height:300px;overflow:auto;overflow-x: hidden;">
       <% if @notifications %>
-        <% 10.times do %>
-          <% @notifications.each do |notification| %>
-            <% if notification.seen %>
-              <div style="width:300px;background-color:#F0EB6E;border-bottom:1px solid black;margin:10px;">
-            <% else %>
-              <div style="width:300px;background-color:white;border-bottom:1px solid black;margin:0 10px;">
-            <% end %>
-            <%= link_to notification.lecturer.name, notification.lecturer %>
-            created a course named
-            <%= link_to notification.course.name, notification.course %>,
-            we thought you might beinterested based on your interests:
-            <%= link_to notification.request.tags.map(&:label).join(','), notification.request %>
-            </div>
+        <% @notifications.each do |notification| %>
+          <% if notification.seen %>
+            <div style="width:300px;background-color:#F0EB6E;border-bottom:1px solid black;margin:10px;">
+          <% else %>
+            <div style="width:300px;background-color:white;border-bottom:1px solid black;margin:0 10px;">
           <% end %>
+          <%= link_to notification.lecturer.name, notification.lecturer %>
+          created a course named
+          <%= link_to notification.course.name, notification.course %>,
+          we thought you might beinterested based on your interests:
+          <%= link_to notification.request.tags.map(&:label).join(','), notification.request %>
+          </div>
         <% end %>
       <% end %>
     </span>
