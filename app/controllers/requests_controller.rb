@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
   include Taggable
+  include Geolocation
 
 
   before_action :set_request, only: [:show, :edit, :update, :destroy]
@@ -27,12 +28,12 @@ class RequestsController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
-    location = course_params[:location]
-    @request = Request.new(request_params.merge(requester: current_user))
+    location = request_params[:location]
+    @request = Request.new(request_params.merge(requester: current_user, location: geocode_location(location)))
 
     respond_to do |format|
       if @request.save
-        @request.tags << extract_tags(params[:request][:tags], location: geocode_location(location))
+        @request.tags << extract_tags(params[:request][:tags])
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }
       else
@@ -45,10 +46,10 @@ class RequestsController < ApplicationController
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
-    location = course_params[:location]
+    location = request_params[:location]
 
-    if @request.update(request_params)
-      @request.tags << extract_tags(params[:request][:tags], location: geocode_location(location))
+    if @request.update(request_params.merge(location: geocode_location(location)))
+      @request.tags << extract_tags(params[:request][:tags])
       format.html { redirect_to @request, notice: 'Request was successfully updated.' }
       format.json { render :show, status: :ok, location: @request }
     else

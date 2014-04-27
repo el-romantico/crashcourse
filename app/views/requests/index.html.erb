@@ -1,12 +1,11 @@
-<p>Add <a href="/requests/new">a new request</a>
 <% @requests.each do |request| %>
   <div class="row">
-    <h2><%= request.location %></h2>
-    <p>
-    <% request.tags.each do |tag| %>
-      <%= tag.label %>
-    <% end %>
-    </p>
+    <h2>
+      <% request.tags.each do |tag| %>
+        <%= tag.label %>
+      <% end %>
+    </h2>
+    <p><%= request.location_address %></p>
     <p><%= link_to 'Show', request, :class => "btn btn-default" %></p>
   </div>
 <% end %>

@@ -1,4 +1,5 @@
 module Geolocation
+  include Geokit::Geocoders
   extend ActiveSupport::Concern
 
   def geocode_location(location)
