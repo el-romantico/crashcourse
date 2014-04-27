@@ -29,11 +29,13 @@
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= @participants_progress %>%;">
       </div>
     </div>
-    <% if @course.enrolled?(current_user) %>
-      <%= button_to 'Withdraw from course', {action: 'withdraw'},
-        class: "btn btn-success col-sm-12" %>
-    <% elsif current_user != @course.lecturer %>
-      <%= button_to "Enroll", {action: 'enroll'}, class: "btn btn-success col-sm-12" %>
+    <% if current_user %>
+      <% if @course.enrolled?(current_user) %>
+        <%= button_to 'Withdraw from course', {action: 'withdraw'},
+          class: "btn btn-success col-sm-12" %>
+      <% elsif current_user != @course.lecturer %>
+        <%= button_to "Enroll", {action: 'enroll'}, class: "btn btn-success col-sm-12" %>
+      <% end %>
     <% end %>
 
     <% if current_user %>
