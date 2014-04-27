@@ -17,7 +17,7 @@ location_plovdiv = Location.create(address: "bul 'Hristo Botev', 4000 Plovdiv",
                                    lat: 42.1500,
                                    lng: 24.7500)
 
-admin = User.create(name: 'Antonio JAVAldi',
+admin = User.create(name: 'John Doe',
                    email: 'root@example.org',
                    password: 'testtest',
                    password_confirmation: 'testtest',
