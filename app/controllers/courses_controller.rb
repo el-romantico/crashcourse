@@ -114,7 +114,7 @@ class CoursesController < ApplicationController
     def set_course
       @course = Course.find(params[:id])
     end
-    
+
     def require_eligible
       unless current_user && (current_user.admin? || current_user == @course.lecturer)
         redirect_to @course

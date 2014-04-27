@@ -134,7 +134,7 @@
           </li>
           <% if user_signed_in? %>
             <li><a id="toggle_notifications" href="#" data-ajaxload="/notifications/list" data-no-turbolink="true">
-              <% if @notifications %>
+              <% if @has_notifications %>
                 <span class="badge alert-danger">&nbsp;</span>
               <% else %>
                 <span class="badge alert-default">&nbsp;</span>

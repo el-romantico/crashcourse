@@ -1,16 +1,10 @@
 <% if @notifications %>
   <% @notifications.each do |notification| %>
-    <% if notification.seen %>
-      <div style="background-color:#F0EB6E;">
-    <% else %>
-      <div style="background-color:white;">
-    <% end %>
     <%= link_to notification.lecturer.name, notification.lecturer %>
     created a course named
     <%= link_to notification.course.name, notification.course %>,
     we thought you might beinterested based on your interests:
     <%= link_to notification.request.tags.map(&:label).join(','), notification.request %>
-    </div>
     <hr />
   <% end %>
 <% end %>
