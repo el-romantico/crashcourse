@@ -3,8 +3,7 @@ class CoursesController < ApplicationController
   include Geokit::Geocoders
 
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:edit, :update, :destroy]
-  before_filter :authenticate_user!, :only => [:enroll]
+  before_action :require_login, only: [:edit, :update, :destroy, :enroll]
 
   # GET /courses
   # GET /courses.json
@@ -121,6 +120,10 @@ class CoursesController < ApplicationController
 
     def geocode_location(location)
       geo = GoogleGeocoder.geocode(location)
-      Location.new({lat: geo.lat, lng: geo.lng, address: location}) if geo.success
+      Location.new({lat: geo.lat,
+                    lng: geo.lng,
+                    address: location,
+                    city: geo.city,
+                    country: geo.country}) if geo.success
     end
 end

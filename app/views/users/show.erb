@@ -23,14 +23,14 @@
         <h3>Teaching</h3>
         <% @courses_as_teacher.each do |course| %>
           <h4><%= link_to course.name, course %></h4>
-          <p><%= course.date %>, <%= course.location %></p>
+          <p><%= course.date %>, <%= course.location_city %></p>
         <% end %>
       </div>
       <div class="col-md-4">
         <h3>Enrolled in</h3>
         <% @user.courses.each do |course| %>
           <h4><%= link_to course.name, course %></h4>
-          <p><%= course.date %>, <%= course.location %></p>
+          <p><%= course.date %>, <%= course.location_city %></p>
         <% end %>
       </div>
       <div class="col-md-4">

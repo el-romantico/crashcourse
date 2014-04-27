@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 location = Location.create(address: "15 Tsar Osvoboditel Blvd,1504 Sofia",
+                           city: 'Sofia',
+                           country: 'Bulgaria',
                            lat: 42.212131,
                            lng: 23.234141)
 
@@ -77,8 +79,8 @@ request = Request.create(location: location,
                          requester: admin,
                          tags: [ruby_tag, python_tag])
 
-Notification.create(seen: false,
-                    course: programming,
-                    request: request,
-                    lecturer: moderator,
-                    subscriber: user)
+# Notification.create(seen: false,
+#                     course: programming,
+#                     request: request,
+#                     lecturer: moderator,
+#                     subscriber: user)

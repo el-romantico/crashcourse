@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20140426222018) do
+ActiveRecord::Schema.define(version: 20140427083105) do
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -45,6 +44,8 @@ ActiveRecord::Schema.define(version: 20140426222018) do
     t.string  "address"
     t.float   "lat"
     t.float   "lng"
+    t.string  "city"
+    t.string  "country"
   end
 
   add_index "locations", ["course_id"], name: "index_locations_on_course_id"

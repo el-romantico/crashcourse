@@ -6,6 +6,10 @@ class CoursesControllerTest < ActionController::TestCase
   setup do
     @course = courses(:one)
     @request.env["devise.mapping"] = Devise.mappings[:admin]
+
+    puts "ASD"
+    puts users(:root)
+
     sign_in users(:root)
   end
 
@@ -32,7 +36,7 @@ class CoursesControllerTest < ActionController::TestCase
     get :show, id: @course
     assert_response :success
   end
-  
+
   test "should destroy course" do
     assert_difference('Course.count', -1) do
 

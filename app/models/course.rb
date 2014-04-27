@@ -29,4 +29,8 @@ class Course < ActiveRecord::Base
     location.nil? ? '' : location.address
   end
 
+  def location_city
+    location.nil? ? '' : location.city
+  end
+
 end
