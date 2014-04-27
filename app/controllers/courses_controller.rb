@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
 
   before_action :set_course, only: [:show, :edit, :update, :destroy, :enroll, :withdraw]
   before_action :require_eligible, only: [:edit, :update, :destroy]
-  before_action :require_login, only: [:enroll, :withdraw]
+  before_action :require_login, only: [:new, :enroll, :withdraw]
 
   # GET /courses
   # GET /courses.json

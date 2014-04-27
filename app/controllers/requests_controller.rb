@@ -4,6 +4,8 @@ class RequestsController < ApplicationController
 
 
   before_action :set_request, only: [:show, :edit, :update, :destroy]
+  before_action :require_eligible, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [:new]
 
   # GET /requests
   # GET /requests.json
@@ -72,6 +74,16 @@ class RequestsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_request
       @request = Request.find(params[:id])
+    end
+
+    def require_eligible
+      unless current_user && (current_user.admin? || current_user == @course.lecturer)
+        redirect_to @course
+      end
+    end
+
+    def require_login
+      redirect_to new_user_session_path unless current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
