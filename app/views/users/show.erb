@@ -22,15 +22,31 @@
       <div class="col-md-4">
         <h3>Teaching</h3>
         <% @courses_as_teacher.each do |course| %>
-          <h4><%= link_to course.name, course %></h4>
-          <p><%= course.date %>, <%= course.location_city %></p>
+          <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><%= link_to course.name, course %></h3>
+              </div>
+              <div class="panel-body">
+                <p><%= truncate course.description, length: 500 %></p>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
       <div class="col-md-4">
         <h3>Enrolled in</h3>
         <% @user.courses.each do |course| %>
-          <h4><%= link_to course.name, course %></h4>
-          <p><%= course.date %>, <%= course.location_city %></p>
+          <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><%= link_to course.name, course %></h3>
+              </div>
+              <div class="panel-body">
+                <p><%= truncate course.description, length: 500 %></p>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
       <div class="col-md-4">

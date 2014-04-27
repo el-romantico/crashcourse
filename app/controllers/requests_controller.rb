@@ -48,7 +48,7 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if @request.save
         @request.tags << extract_tags(params[:request][:tags])
-        format.html { redirect_to @request, notice: 'Request was successfully created.' }
+        format.html { redirect_to :root, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }
       else
         format.html { render :new }
