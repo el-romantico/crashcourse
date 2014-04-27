@@ -18,7 +18,7 @@ initializeMarkers = ->
     return
 
 initializeMap = ->
-  center = new google.maps.LatLng(42.1419, 23.4419)
+  center = new google.maps.LatLng(42.9419, 25.1419)
   map = new google.maps.Map(document.getElementById("map"),
     zoom: 8
     center: center
