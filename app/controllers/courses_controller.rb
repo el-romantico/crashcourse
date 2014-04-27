@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
   def show
     @current_participants_count = @course.users.size
     @minimum_participants = @course.min_participants
+    @participants_progress = [@current_participants_count * 100 / @minimum_participants, 100].min.to_i
   end
 
   # GET /courses/new

@@ -24,6 +24,10 @@
         <%= holder_tag '320x240' %>
       <% end %>
     </div>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= @participants_progress %>%;">
+      </div>
+    </div>
     <% unless @course.enrolled? current_user %>
       <%= button_to "Enroll", {action: 'enroll'}, class: "btn btn-success col-sm-12" %>
     <% end %>
