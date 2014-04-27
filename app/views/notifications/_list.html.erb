@@ -1,6 +1,6 @@
 <% if @notifications %>
   <% @notifications.each do |notification| %>
-  <div class="notification-item">
+  <div class="notification-item" data-id="<%= notification.id %>">
     <%= link_to notification.lecturer.name, notification.lecturer %>
     created a course named
     <%= link_to notification.course.name, notification.course %>,
