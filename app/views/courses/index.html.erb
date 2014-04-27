@@ -11,16 +11,30 @@
       <ul class="typeahead typeahead-long dropdown-menu" style="top: 497px; left: 410px; display: none;"></ul>
     </div>
   <% end %>
-
+</div>
+<div style="margin-top: 50px;">
   <% @courses.each_slice(3) do |courses_row| %>
     <!-- Example row of columns -->
     <div class="row">
       <% courses_row.each do |course| %>
         <div class="col-md-4">
-          <h2><%= link_to course.name, course %></h2>
-          <%= image_tag(course.picture.url(:thumb)) %>
-          <p><%= course.description %></p>
-
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= link_to course.name, course %></h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                <div style="text-align:center;">
+                  <% if course.picture.present? %>
+                    <%= image_tag(course.picture.url(:thumb)) %>
+                  <% else %>
+                    <%= holder_tag '320x240' %>
+                  <% end %>
+                </div>
+              </p>
+              <p><%= truncate course.description, length: 500 %></p>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>

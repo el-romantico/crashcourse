@@ -38,7 +38,7 @@ class CoursePictureUploader < CarrierWave::Uploader::Base
   # end
 
   version(:thumb) do
-    resize_to_fill(300, 150)
+    resize_to_fill(320, 240)
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
