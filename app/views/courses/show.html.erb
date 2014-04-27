@@ -8,8 +8,7 @@
         <% else %>
           <span class="label label-warning">Waiting for approval</span>
         <% end %>
-        In Sofia on
-        <%= @course.date.strftime('%B %e, %Y at %l:%M %p') %>
+        In <%= @course.location_city %> on <%= formatted_date(@course.date) %>
       </small></h3>
     </li>
 
