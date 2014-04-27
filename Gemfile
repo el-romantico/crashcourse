@@ -33,6 +33,8 @@ gem 'binding_of_caller', group: :development
 
 gem 'bootstrap-sass', '~> 3.1.1'
 
+gem 'bootstrap-tooltip-rails'
+
 gem 'searchkick'
 
 gem 'will_paginate'

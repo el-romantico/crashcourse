@@ -5,15 +5,7 @@ Rails.application.routes.draw do
 
   get '/calendar' => 'calendar#index'
 
-  get 'requests/show'
-
-  get 'requests/new'
-
-  get 'requests/update'
-
-  get 'requests/edit'
-
-  get 'requests/index'
+  get '/notifications/list' => 'notifications#list'
 
   resources :courses
   resources :requests

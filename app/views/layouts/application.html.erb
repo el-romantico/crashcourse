@@ -34,6 +34,9 @@
     .thumbnail {
       border: 0;
     }
+    .popover {
+      width: 220px ! important;
+    }
   </style>
   <style type="text/css">
  .bs-example{
@@ -89,7 +92,7 @@
 
 <script type="text/javascript">
   $(document).bind('page:change', function() {
-    Holder.run()
+    Holder.run();
   });
 </script>
 </head>
@@ -113,11 +116,6 @@
         <div class="navbar-header">
           <%= link_to 'Patterns', patterns_view_path, :class => 'navbar-brand' %>
         </div>
-        <% if user_signed_in? %>
-          <div class="navbar-header">
-            <button id="toggle_notifications" type="button" class="btn btn-default btn-lg">
-          </div>
-        <% end %>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
           <li>
@@ -130,8 +128,19 @@
             <%= link_to 'New Request', new_request_path %>
           </li>
           <li>
-            <%= link_to "Howdy, #{current_user.first_name}", current_user %>
+            <%= link_to current_user do %>
+              Howdy, <%= current_user.first_name %>
+            <% end %>
           </li>
+          <% if user_signed_in? %>
+            <li><a id="toggle_notifications" href="#" data-ajaxload="/notifications/list" data-no-turbolink="true">
+              <% if @notifications %>
+                <span class="badge alert-danger">&nbsp;</span>
+              <% else %>
+                <span class="badge alert-default">&nbsp;</span>
+              <% end %>
+            </a></li>
+          <% end %>
           <li>
             <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
           </li>
@@ -154,25 +163,6 @@
       <div class="push"><!--//--></div>
     </div>
     <hr>
-
-    <span id="notification_panel" style="visibility:hidden;position:fixed;top:50px;left:220px;height:300px;overflow:auto;overflow-x: hidden;">
-      <% if @notifications %>
-        <% @notifications.each do |notification| %>
-          <% if notification.seen %>
-            <div style="width:300px;background-color:#F0EB6E;border-bottom:1px solid black;margin:10px;">
-          <% else %>
-            <div style="width:300px;background-color:white;border-bottom:1px solid black;margin:0 10px;">
-          <% end %>
-          <%= link_to notification.lecturer.name, notification.lecturer %>
-          created a course named
-          <%= link_to notification.course.name, notification.course %>,
-          we thought you might beinterested based on your interests:
-          <%= link_to notification.request.tags.map(&:label).join(','), notification.request %>
-          </div>
-        <% end %>
-      <% end %>
-    </span>
-
     <footer>
       <div class="container">
         <p>&copy; Some rights reserved 2014</p>
