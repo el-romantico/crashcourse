@@ -5,9 +5,13 @@ one:
   date: 2014-04-26 02:23:21
   location: MyString
   description: MyText
+  min_participants: 10
+  lecturer: root
 
 two:
   name: MyString
   date: 2014-04-26 02:23:21
   location: MyString
   description: MyText
+  min_participants: 10
+  lecturer: root

@@ -11,7 +11,8 @@ class Course < ActiveRecord::Base
 
   validates :location, presence: true, allow_blank: false
   validates :name, presence: true, allow_blank: false
-  
+  validates_presence_of :min_participants
+
   mount_uploader :picture, CoursePictureUploader
 
   def enrolled?(user)

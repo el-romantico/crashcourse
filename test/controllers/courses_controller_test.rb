@@ -23,7 +23,9 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "should create course" do
     assert_difference('Course.count') do
-      post :create, course: { date: @course.date, description: @course.description, location: @course.location, name: @course.name, tags: '' }
+      post :create, course: { location: 'My space',
+                              name: 'My course',
+                              tags: 'special,course' }
     end
 
     assert_redirected_to course_path(assigns(:course))
